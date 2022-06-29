@@ -9,16 +9,28 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    instance
+    const expreg = /^[a-z_-]$/;
+    if (expreg.test(username)) {
+      instance
       .post("/datapost", {
         username: username,
         email: email,
         phone: phone,
-      })
-      .then((res) => {
-        alert("Submited");
       });
+    }
+      
+    else {
+      alert("Solo se permiten letras minúsculas y guiones");
+    }
+    
   };
+  const handleClean = (e) => {
+    e.preventDefault();
+    setUsername("");
+    setEmail("");
+    setPhone("");
+
+  }
 
   useEffect(() => {
     instance.get("/dataget").then((res) => {
@@ -44,6 +56,7 @@ const App = () => {
             className="mt-1 w-full rounded-md p-2"
             required
             onChange={(e) => setUsername(e.target.value)}
+            value={username} 
           />
         </div>
 
@@ -59,6 +72,7 @@ const App = () => {
             className="mt-1 w-full rounded-md p-2"
             required
             onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
         </div>
 
@@ -67,13 +81,14 @@ const App = () => {
             Phone Number
           </label>
           <input
-            type="text"
+            type="number"
             name="Phone-number"
             id="Phone-number"
             placeholder="Phone Number"
             className="mt-1 w-full rounded-md p-2"
             required
             onChange={(e) => setPhone(e.target.value)}
+            value={phone}
           />
         </div>
         <button
@@ -81,6 +96,12 @@ const App = () => {
           className="py-2 px-4 h-12 text-sm font-medium rounded-md text-white bg-indigo-600 "
         >
           Submit
+        </button>
+        <button
+          type="submit"
+          className="py-2 px-4 h-12 text-sm font-medium rounded-md text-white bg-indigo-600 "
+          onClick={handleClean}>
+          Clean
         </button>
       </form>
       <div className="bg-white shadow mt-10 px-5 overflow-y-auto rounded shadow-black mb-5 w-[700px]">
