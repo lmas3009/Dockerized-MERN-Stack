@@ -9,8 +9,9 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const expreg = /^[a-z_-]$/;
-    if (expreg.test(username)) {
+    const latino = /\w/; // diag izq sirve para delimitar la expresión regular y derecha sirve para usar un comodin que en este caso en conjunto a la w representa las letras del alfabeto latino y el guión bajo
+    const diff = /\W/;   // La W mayúscula representa todo lo que sea diferente a las letras del alfabeto latino y guiones bajos
+    if (latino.test(username) && !diff.test(username)) {
       instance
       .post("/datapost", {
         username: username,
