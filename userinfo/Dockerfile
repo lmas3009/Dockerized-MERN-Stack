@@ -1,9 +1,8 @@
 FROM node:alpine
 
-WORKDIR /react/reactapp
+WORKDIR /react/rea
 
 COPY . .
 
-RUN npm install
 
 CMD ["npm","start"]
